@@ -15,13 +15,16 @@ A high-fidelity 3D reinforcement learning simulation that replicates complex mul
 ## 📸 Screenshots
 
 ### 🖼️ Image 1: Agent Detail
-![Image 1](image/image1.png)
+<img width="1920" height="912" alt="image1" src="https://github.com/user-attachments/assets/980c2170-e2c6-4bcf-b2f4-829e49df6b1f" />
+
 
 ### 🖼️ Image 2: Wide Action View
-![Image 2](image/image2.png)
+<img width="1920" height="912" alt="image2" src="https://github.com/user-attachments/assets/bea11f64-4a8d-405e-95db-379b400fbdf8" />
+
 
 ### 🖼️ Image 3: Telemetry Dashboard
-![Image 3](image/image3.png)
+<img width="1920" height="912" alt="image3" src="https://github.com/user-attachments/assets/f9033b9e-fc37-4dbc-ad88-b6379e5de0c6" />
+
 
 ---
 
