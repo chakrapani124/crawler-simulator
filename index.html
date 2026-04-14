@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RL Crawler | Telemetry Terminal</title>
+  <meta name="description" content="Premium reinforcement learning simulation dashboard for autonomous crawler locomotion." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- ===== SIDEBAR TELEMETRY ===== -->
+    <aside class="telemetry-sidebar">
+      <div class="sidebar-inner">
+        
+        <header class="telemetry-header">
+          <div class="dot-indicator"></div>
+          <h1>RL TELEMETRY</h1>
+        </header>
+
+        <section class="telemetry-group">
+          <h2 class="group-title">POLICY</h2>
+          <div class="row">
+            <span class="label">Algorithm</span>
+            <span class="value accent-blue">PPO</span>
+          </div>
+          <div class="row">
+            <span class="label">Status</span>
+            <span class="value status-active">
+              <span class="status-dot"></span> Policy Active
+            </span>
+          </div>
+          <div class="row">
+            <span class="label">Agent State</span>
+            <span class="value" id="agent-state">Searching...</span>
+          </div>
+        </section>
+
+        <section class="telemetry-group">
+          <h2 class="group-title">TRAINING METRICS</h2>
+          <div class="row">
+            <span class="label">Mean Reward</span>
+            <span class="value accent-green" id="mean-reward">0.000</span>
+          </div>
+          <div class="row">
+            <span class="label">Episode Return</span>
+            <span class="value" id="episode-return">0.00</span>
+          </div>
+          <div class="row">
+            <span class="label">Steps</span>
+            <span class="value" id="total-steps">0</span>
+          </div>
+          <div class="row">
+            <span class="label">Episodes</span>
+            <span class="value" id="total-episodes">0</span>
+          </div>
+        </section>
+
+        <section class="telemetry-group">
+          <h2 class="group-title">OBSERVATION</h2>
+          <div class="row">
+            <span class="label">Distance</span>
+            <span class="value" id="obs-distance">0.00 m</span>
+          </div>
+          <div class="row">
+            <span class="label">Heading Error</span>
+            <span class="value" id="obs-heading">0.0°</span>
+          </div>
+          <div class="row">
+            <span class="label">Velocity</span>
+            <span class="value" id="obs-velocity">0.00 m/s</span>
+          </div>
+        </section>
+
+        <section class="telemetry-group reward-history">
+          <h2 class="group-title">REWARD HISTORY</h2>
+          <div class="chart-container">
+            <canvas id="reward-chart"></canvas>
+          </div>
+        </section>
+
+        <footer class="sidebar-controls">
+          <button class="control-btn" id="btn-reset">
+            <span class="icon">↺</span> Reset Episode
+          </button>
+          <button class="control-btn" id="btn-pause">
+            <span class="icon" id="pause-icon">⏸</span> <span id="pause-text">Pause</span>
+          </button>
+        </footer>
+
+      </div>
+    </aside>
+
+    <!-- ===== MAIN VIEWPORT ===== -->
+    <main class="viewport-main">
+      <div id="three-container"></div>
+      
+      <!-- Bottom HUD -->
+      <div class="viewport-hud-bottom">
+        <div class="hud-item mono">Three.js r128</div>
+        <div class="hud-item mono" id="hud-fps">0 FPS</div>
+        <div class="hud-item mono">PPO Crawler v1.0</div>
+      </div>
+
+      <!-- Target Reached Overlay (Optional/Flash) -->
+      <div class="target-flash hidden" id="target-flash">TARGET REACHED</div>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
