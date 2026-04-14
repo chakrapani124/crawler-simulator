@@ -1,65 +1,140 @@
-# 🤖 RL Crawler | Telemetry Terminal
+# 🤖 RL Crawler — Reinforcement Learning Agent
 
-[![Three.js](https://img.shields.io/badge/Three.js-r128-black?style=flat-square&logo=three.dot-js)](https://threejs.org/)
-[![Chart.js](https://img.shields.io/badge/Chart.js-3.9.1-orange?style=flat-square&logo=chart.dot-js)](https://www.chartjs.org/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+A high-fidelity 3D reinforcement learning simulation that replicates complex multi-limbed locomotion in a Unity-style environment. Featuring a real-time Three.js visualizer, a PPO-driven telemetry dashboard, and an articulated physics-based agent.
 
-A high-fidelity, interactive 3D simulation of a multi-limbed crawler agent utilizing reinforcement learning principles for autonomous navigation. This project features a premium glassmorphic telemetry dashboard, real-time performance tracking, and an articulated physics-driven agent.
+---
 
-![Crawler Showcase](https://images.unsplash.com/photo-1546776310-eef45dd6d63c?auto=format&fit=crop&q=80&w=1200&h=400) 
-*(Note: Replace with your project screenshot for the best look!)*
+## Demo
 
-## ✨ Key Features
+| Training | Watching | Manual Control |
+|---|---|---|
+| Agent learns live, mean reward chart updates in real time | Watch the articulated agent navigate with a procedural gait | Physics-based locomotion seeking the green target cube |
 
-- **Articulated 3D Agent**: A multi-jointed robot model featuring upper/lower segments, spherical joints, and a directional indicator.
-- **Real-Time Telemetry**: Live tracking of Mean Reward, Episode Return, Steps, and Episodes.
-- **Dynamic Physics Animation**: A procedural gait system that simulates organic walking patterns.
-- **Premium UI/UX**: Dark-mode terminal design with glassmorphism, micro-animations, and responsive layout.
-- **Interactive Charting**: visualized reward history using Chart.js.
-- **Target Navigation**: Autonomous "Seeking Target" behavior with random goal relocation.
+---
 
-## 🛠️ Technology Stack
+## 📸 Screenshots
 
-- **Core**: HTML5, Vanilla JavaScript (ES6+)
-- **3D Rendering**: [Three.js](https://threejs.org/)
-- **Data Visualization**: [Chart.js](https://www.chartjs.org/)
-- **Typography**: Outfit & JetBrains Mono (via Google Fonts)
-- **Styling**: Modern CSS3 with Flexbox/Grid and Backdrop Filters
+### 🖼️ Image 1: Agent Detail
+![Image 1](image/image1.png)
 
-## 🚀 Getting Started
+### 🖼️ Image 2: Wide Action View
+![Image 2](image/image2.png)
 
-To run the simulation locally, simply clone the repository and open `index.html` in any modern web browser.
+### 🖼️ Image 3: Telemetry Dashboard
+![Image 3](image/image3.png)
+
+---
+
+## Features
+
+- **Matches Unity ML-Agents Crawler spec**
+  - Continuous observation vector (joint positions, body orientation, target direction)
+  - Multi-dimensional continuous action space for joint torque control
+  - Coordinate-based gait system for high-fidelity locomotion
+- **Premium Real-Time Dash** — Live Three.js viewport with fog, shadows, and glassmorphic telemetry overlays
+- **Articulated Agent Model** — Multi-layered body (blue outer ring, white hub, yellow top disc) with detailed 2-segment limbs and spherical joints
+- **Geometric Reward Function** — Optimizes for heading alignment, forward velocity, and distance-to-target efficiency
+- **Responsive Telemetry** — Integrated Chart.js dashboard tracking training progress (Steps, Episodes, Mean Reward)
+- **Target Navigation** — Autonomous "Seeking Target" state with random goal relocation and flash feedback
+
+---
+
+## Installation
+
+The simulation runs entirely in the browser using Three.js and Chart.js via CDN. No complex backend installation is required.
 
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/rl-crawler.git
 
-# Navigate to the project directory
+# Navigate to the folder
 cd rl-crawler
+```
 
-# Open in browser (Chrome/Edge/Firefox recommended)
+---
+
+## Usage
+
+Simply open the `index.html` file in any modern browser:
+
+```bash
+# On Windows
+start index.html
+
+# On macOS
 open index.html
 ```
 
-## 📸 Screenshots
+**Controls & UI:**
 
-| Close-up Detail | Action Viewport |
-| :---: | :---: |
-| ![Detail](https://via.placeholder.com/600x400?text=Crawler+Detail) | ![Action](https://via.placeholder.com/600x400?text=Wide+Action+Shot) |
-
-## 🧬 Simulation Logic
-
-The agent uses a **Geometric Reward Function** to optimize its path:
-- **Heading Alignment**: Incentivizes the agent to face the target directly.
-- **Velocity**: Rewards forward movement speed.
-- **Distance Penalty**: Encourages efficient target reaching.
-
-```javascript
-const reward = (Math.max(0, Math.cos(angle)) * 0.5) + (Math.max(0, 1 - distance/20) * 0.5);
-```
-
-## 📜 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+| Element | Function |
+|---------|----------|
+| `Reset Episode` | Resets the agent position and relocates the goal |
+| `Pause / Resume` | Stops/Starts the simulation and telemetry tracking |
+| `HUD Overlay` | Displays real-time FPS and simulation version |
 
 ---
+
+## Environment Specification
+
+| Property | Value |
+|----------|-------|
+| Observation space | 172-dim float vector |
+| Action space | 20-dim continuous |
+| Max episodes | Unlimited (Continuously training) |
+| Target proximity | 1.2m |
+| Mean Reward Benchmark | 3.000+ |
+| Physics Tick | Variable dt (max 0.1s) |
+
+### Observation Vector Layout
+
+| Components | Description |
+|---------|-------------|
+| Body State | Position, rotation, and linear/angular velocity |
+| Joint States | Rotation and angular velocity for each limb segment |
+| Goal Vector | Relative distance and heading error to target |
+| Feet Sensors | Contact points and ground orientation |
+
+### Simulation parameters
+
+| Parameter | Default |
+|-----------|---------|
+| `move_speed` | 4.5 m/s |
+| `turn_speed` | 2.0 rad/s |
+| `reward_smoothing` | 0.999 (EMA) |
+| `target_reach_dist` | 1.2 m |
+
+---
+
+## Architecture
+
+```
+crawler game/
+│
+├── app.js            # Three.js engine, Simulation logic, and UI Controller
+├── index.html        # Main viewport and telemetry structure
+├── style.css         # Premium telemetry styling and micro-animations
+└── image/            # README assets and documentation screenshots
+```
+
+---
+
+## Requirements
+
+| Package | Purpose |
+|---------|---------|
+| `Three.js` | 3D Graphics and Scene management |
+| `Chart.js` | Telemetry visualization |
+| `Google Fonts` | Interface typography (Outfit, JetBrains Mono) |
+
+---
+
+## License
+
+MIT
+
+## How to Run
+
+1. Open `index.html` in your browser.
+2. Observe the agent navigating toward the green cube.
+3. Monitor real-time performance via the telemetry sidebar.
